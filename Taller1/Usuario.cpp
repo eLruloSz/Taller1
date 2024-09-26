@@ -49,3 +49,6 @@ void Usuario::mostrarMaterialesPrestados() const{
         }
     }
 };
+std::string Usuario::getId(){
+    return this -> id;
+}

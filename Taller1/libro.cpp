@@ -3,8 +3,8 @@
 #include <string>
 #include <iostream>
 
-libro::libro(std::string fechaPublicacion , std::string resumen): MaterialBibliografico( nombre,isbn,autor,prestado){
-  this -> fechaPublicacion=fechaPublicacion;
+libro::libro(std:: string nombre, int isbn, std::string autor, bool prestado, std::string fechaPublicacion , std::string resumen) : MaterialBibliografico(nombre, isbn, autor, prestado){
+  this -> fechaPublicacion = fechaPublicacion;
   this-> resumen = resumen;  
 };
 libro::~libro(){};

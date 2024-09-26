@@ -3,7 +3,7 @@
 #include "MaterialBibliografico.h"
 #include <string>
 
-class Revista : MaterialBibliografico
+class Revista : public MaterialBibliografico
 {
 private:
     int numEdicion;

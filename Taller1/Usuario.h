@@ -16,5 +16,6 @@ class Usuario{
         void prestarMaterial(MaterialBibliografico* material);
         void devolverMaterial(MaterialBibliografico* material);
         void mostrarMaterialesPrestados() const;
+        std::string getId();
 };
 #endif // USUARIO_H
