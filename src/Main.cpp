@@ -1,8 +1,8 @@
 #include <iostream>
-#include "MaterialBibliografico.h"
-#include "libro.h"
-#include "Revista.h"
-#include "Usuario.h"
+#include "../include/MaterialBibliografico.h"
+#include "../include/libro.h"
+#include "../include/Revista.h"
+#include "../include/Usuario.h"
 
 void menu();
 void buscarMaterial(MaterialBibliografico *biblioteca[100]);
@@ -92,7 +92,7 @@ void buscarMaterial(MaterialBibliografico *biblioteca[100])
     std::string articulo;
     std::cin >> articulo;
 
-    for (int i = 0; i < contbiblio - 1; i++)
+    for (int i = 0; i < contbiblio-1; i++)
     {
         if (biblioteca[i] != nullptr)
         {

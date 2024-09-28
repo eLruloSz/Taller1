@@ -1,4 +1,4 @@
-#include "MaterialBibliografico.h"
+#include "../include/MaterialBibliografico.h"
 
 MaterialBibliografico :: MaterialBibliografico(std::string nombre, int isbn, std::string autor, bool prestado){
     this -> nombre = nombre;

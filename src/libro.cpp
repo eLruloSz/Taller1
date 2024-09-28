@@ -1,5 +1,5 @@
-#include "MaterialBibliografico.h"
-#include "libro.h"
+#include "../include/MaterialBibliografico.h"
+#include "../include/libro.h"
 #include <string>
 #include <iostream>
 

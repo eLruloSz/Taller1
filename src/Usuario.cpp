@@ -1,4 +1,4 @@
-#include "Usuario.h"
+#include "../include/Usuario.h"
 #include <string>
 #include <iostream>
 
@@ -17,7 +17,6 @@ void Usuario::prestarMaterial(MaterialBibliografico* material){
     if(numPrestados < 5 && !material -> estaPrestado()){
         materialesPrestados[numPrestados++] = material;
         material -> setPrestado(true);
-        std::cout << "Ayuda";
     }else{
         std::cout << "No se puede prestar el material";
     }
