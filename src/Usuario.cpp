@@ -17,12 +17,17 @@ std::string Usuario::getID() {
 }
 
 void Usuario::prestarMaterial(MaterialBibliografico* material) {
-    if(contador<5) {
+    if(material->getPrestado()==false){
+        if(contador<5) {
         material->cambiarEstado(true);
         materialesPrestrado[contador++] = material;
+        }
+        else {
+            std::cout<<"Invalido\n";
+        }
     }
-    else {
-        std::cout<<"Invalido\n";
+    else{
+        std::cout<<"El material ya se encuentra prestado";
     }
 }
 
@@ -53,3 +58,6 @@ Usuario::~Usuario() {
     std::cout << "Usuario eliminado"<<std::endl;
 }
 
+std::string Usuario::informacion(){
+    return "Nombre: "+this-nombre+"\n Id: "+this->id+"\n";
+}

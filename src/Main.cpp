@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "../include/Libro.h"
 #include "../include/MaterialBibliografico.h"
 #include "../include/Revista.h"
@@ -7,6 +8,7 @@
 #include "MaterialBibliografico.cpp"
 #include "Revista.cpp"
 #include "Usuario.cpp"
+#include "Main.h"
 
 static MaterialBibliografico* biblioteca[100];
 static int contBi = 0;
@@ -23,7 +25,7 @@ void mostrarMenu() {
                  "Ingresar opcion: ";
 }
 
-void opcion1() {
+void agregarMaterial() {
     std::cout << "Tipo (libro/revista): ";
     std::string tipo;
     std::cin >> tipo;
@@ -61,7 +63,7 @@ void opcion1() {
     }
 }
 
-void opcion2() {
+void mostrarInformacion() {
     for (MaterialBibliografico* biblio: biblioteca) {
         if(biblio!=nullptr) {
             std::cout<<biblio->mostrarInformacion()<<"\n------------------\n"<<std::endl;
@@ -69,7 +71,7 @@ void opcion2() {
     }
 }
 
-void opcion3() {
+void buscarBiblio() {
     std::cout << "Titulo/Autor: ";
     std::string buscar;
     std::cin >> buscar;
@@ -99,7 +101,7 @@ MaterialBibliografico * buscarMaterial(const std::string & string) {
     return nullptr;
 }
 
-void opcion4() {
+void prestarODevolver() {
     std::cout << "prestar/devolver: ";
     std::string prebus;std::cin >> prebus;
     std::cout << "Nombre del usuario: ";
@@ -118,6 +120,20 @@ void opcion4() {
 
 int main() {
     bool activo = true;
+    std::ifstream archivo("biblioteca.txt");
+    if (archivo.is_open()) {
+        while (std::getline(archivo, linea)) {
+            std::cout << linea << std::endl;  // Imprimir cada línea en la consola
+        }
+
+        // Cerrar el archivo
+        archivo.close();
+    }else{
+        
+    }
+
+    
+    archivo.close();
 
     while (activo) {
         mostrarMenu();
@@ -126,53 +142,92 @@ int main() {
 
         switch (opcion) {
             case 1: {
-                opcion1();
+                agregarMaterial();
                 break;
             }
             case 2: {
                 // Lógica para mostrar información de la biblioteca
-                opcion2();
+                mostrarInformacion();
                 break;
             }
             case 3: {
                 // Lógica para buscar en la biblioteca
-                opcion3();
+                buscarBiblio();
                 break;
             }
             case 4: {
                 // Lógica para prestar o devolver
-                opcion4();
+                prestarODevolver();
                 break;
             }
             case 5: {
                 // Lógica para gestión de usuarios
-                std::cout<<"Gestion de Usuario:\n"
-                         <<"1. Crear Usuario\n"
-                         <<"2. Buscar un Usuario\n"
-                         <<"3. Eliminar un Usuario\n"
-                         <<"Ingrese una opcion: ";
-                int opcionusuario;std::cin>>opcionusuario;
-                if(opcionusuario == 1) {
-                    std::cout<<"Nombre: ";
-                    std::string nombre;std::cin>>nombre;
-                    std::cout<<"ID: ";
-                    std::string id;std::cin>>id;
-                    usuarios[contUsu++] = new Usuario(nombre,id);
+                int retFlag;
+                gestionUsuario(retFlag);
+                if (retFlag == 2)
+                    break;
+            }case 6:{
+                
+                std::ofstream archivo("biblioteca.txt");
+                if (archivo.is_open()) {
+                    for(MaterialBibliografico* biblio : biblioteca){
+                        archivo<<biblio->getNombre()<<"\n";
+                    }
                 }
-                else if(opcionusuario==2) {
 
-                }
-                else if(opcionusuario==3) {
-
-                }
+                archivo.close();
+                std::cout << "Salida exitosa";
+                activo = false;
                 break;
             }
             default:
-                activo = false;
+                std::cout << "Ingrese opción válida";
                 break;
         }
     }
 
-    // Liberar memoria si es necesario (por ejemplo, liberar biblioteca y usuarios)
     return 0;
+}
+
+void gestionUsuario(int &retFlag)
+{
+    retFlag = 1;
+    std::cout << "Gestion de Usuario:\n"
+              << "1. Crear Usuario\n"
+              << "2. Buscar un Usuario\n"
+              << "3. Eliminar un Usuario\n"
+              << "Ingrese una opcion: ";
+    int opcionusuario;
+    std::cin >> opcionusuario;
+    if (opcionusuario == 1)
+    {
+        std::cout << "Nombre: ";
+        std::string nombre;
+        std::cin >> nombre;
+        std::cout << "ID: ";
+        std::string id;
+        std::cin >> id;
+        usuarios[contUsu++] = new Usuario(nombre, id);
+    }
+    else if (opcionusuario == 2)
+    {
+        std::cout << "Nombre: ";
+        std::string nombre;
+        std::cin >> nombre;
+        Usuario *usuariobuscado = buscarUsuario(nombre);
+        std::cout << usuariobuscado->informacion();
+        std::cout << usuariobuscado->mostrarMaterialesPrestados();
+    }
+    else if (opcionusuario == 3)
+    {
+        std::cout << "Nombre: ";
+        std::string nombre;
+        std::cin >> nombre;
+        Usuario *usuariobuscado = buscarUsuario(nombre);
+        delete usuariobuscado;
+    }
+    {
+        retFlag = 2;
+        return;
+    };
 }
