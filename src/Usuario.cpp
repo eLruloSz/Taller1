@@ -1,53 +1,55 @@
 #include "../include/Usuario.h"
-#include <string>
+#include <algorithm>
 #include <iostream>
+#include <ostream>
 
-Usuario::~Usuario(){};
+Usuario::Usuario(std::string nombre, std::string id) {
+    this->nombre=nombre;
+    this->id=id;
+}
 
-Usuario::Usuario(std::string nombre,std::string id) : numPrestados(0){
-    this->nombre = nombre;
-    this->id = id;
+std::string Usuario::getNombre() {
+    return this->nombre;
+}
 
-    for(int i = 0; i < 5 ; i++){
-        materialesPrestados[i] = nullptr;
-    }
-};
-
-void Usuario::prestarMaterial(MaterialBibliografico* material){
-    if(numPrestados < 5 && !material -> estaPrestado()){
-        materialesPrestados[numPrestados++] = material;
-        material -> setPrestado(true);
-    }else{
-        std::cout << "No se puede prestar el material";
-    }
-};
-
-void Usuario::devolverMaterial(MaterialBibliografico* material){
-    for(int i = 0; i < numPrestados; i++){
-        if(materialesPrestados[i] == material){
-            materialesPrestados[i] -> setPrestado(false);
-            std::cout <<"Material devuelto con éxito";
-            materialesPrestados[i] = nullptr;
-
-            for(int j = i; j < numPrestados - 1; ++j){
-                materialesPrestados[j] = materialesPrestados[j+1];
-            }
-            materialesPrestados[--numPrestados] = nullptr;
-            
-        }else{
-            std::cout << "Material no encontrado";
-        }
-    }
-};
-
-void Usuario::mostrarMaterialesPrestados() const{
-    std::cout << "Materiales prestados por: " << nombre;
-    for(int i = 0; i < numPrestados; i++){
-        if(materialesPrestados[i] != nullptr){
-            materialesPrestados[i] -> mostrarInformacion();
-        }
-    }
-};
-std::string Usuario::getId(){
+std::string Usuario::getID() {
     return this -> id;
 }
+
+void Usuario::prestarMaterial(MaterialBibliografico* material) {
+    if(contador<5) {
+        material->cambiarEstado(true);
+        materialesPrestrado[contador++] = material;
+    }
+    else {
+        std::cout<<"Invalido\n";
+    }
+}
+
+void Usuario::devolverMaterial(std::string materialDevolver) {
+
+    for (int i = 0; i < 5; i++) {
+        if (materialesPrestrado[i] != nullptr && (materialesPrestrado[i]->getAutor() == materialDevolver ||materialesPrestrado[i]->getNombre() == materialDevolver)) {
+            materialesPrestrado[i]->cambiarEstado(false);
+            materialesPrestrado[i] = nullptr;
+            contador--;
+            break;
+        }
+    }
+}
+
+
+std::string Usuario::mostrarMaterialesPrestados() {
+    std::string a = "";
+    for (int i = 0; i < 5; i++) {
+        if (materialesPrestrado[i] != nullptr) {
+            a += materialesPrestrado[i]->mostrarInformacion() + "\r";
+        }
+    }
+    return a;
+}
+
+Usuario::~Usuario() {
+    std::cout << "Usuario eliminado"<<std::endl;
+}
+

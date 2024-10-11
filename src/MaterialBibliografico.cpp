@@ -1,25 +1,37 @@
+// MaterialBibliografico.cpp
 #include "../include/MaterialBibliografico.h"
 
-MaterialBibliografico :: MaterialBibliografico(std::string nombre, int isbn, std::string autor, bool prestado){
-    this -> nombre = nombre;
-    this -> isbn = isbn;
-    this -> autor = autor;
-    this -> prestado = prestado;
-};
+MaterialBibliografico::MaterialBibliografico(std::string nombre, std::string isbn, std::string autor, bool prestado) {
+    this->nombre = nombre;
+    this->isbn = isbn;
+    this->autor = autor;
+    this->prestado = prestado;
+}
 
-std::string MaterialBibliografico :: getNombre()const {
-    return nombre;
-};
-int MaterialBibliografico :: getIsbn() const{
-    return isbn;
-};
-std::string MaterialBibliografico :: getAutor() const{
-    return autor;
-};
-bool MaterialBibliografico :: estaPrestado() const{
-    return prestado;
-};
-void MaterialBibliografico::setPrestado(bool prestado)
-{
-    this -> prestado = prestado;
-};
+std::string MaterialBibliografico::getNombre() {
+    return this->nombre;
+}
+
+std::string MaterialBibliografico::getIsbn() {
+    return this->isbn;
+}
+
+std::string MaterialBibliografico::getAutor() {
+    return this->autor;
+}
+
+bool MaterialBibliografico::getPrestado() {
+    return this->prestado;
+}
+
+void MaterialBibliografico::cambiarEstado(bool estado) {
+    this->prestado=estado;
+}
+
+std::string MaterialBibliografico::mostrarInformacion(){
+return "Nombre: " + this->nombre + " Isbn: " + this->isbn + " Autor: " + this->autor + " Prestado: " + (this->prestado ? "Sí" : "No");
+}
+
+MaterialBibliografico::~MaterialBibliografico() {
+
+}

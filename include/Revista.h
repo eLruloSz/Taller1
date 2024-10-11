@@ -1,19 +1,21 @@
 #ifndef REVISTA_H
 #define REVISTA_H
 #include "MaterialBibliografico.h"
-#include <string>
 
-class Revista : public MaterialBibliografico
-{
-private:
-    int numEdicion;
-    std::string mesPublicacion;
 
+class Revista: public MaterialBibliografico{
+protected:
+    std::string numeroedicion,mespublicacion;
 public:
-    Revista(std::string nombre, int isbn, std::string autor, bool prestado, int numEdicion, std::string mesPublicacion);
-    void mostrarInformacion() const override;
-    int getNumEdicion();
-    std::string getMesPublicacion();
-    
+    Revista(std::string nombre, std::string isbn, std::string autor, bool prestado, std::string numeroedicion,  std::string mespublicacion);
+    std::string getNumeroEdicion()const;
+    std::string getMesPublicacion()const;
+    std::string mostrarInformacion() override;
+
+    ~Revista();
+
 };
-#endif // REVISTA_H
+
+
+
+#endif //REVISTA_H

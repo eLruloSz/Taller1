@@ -1,21 +1,26 @@
-#include "../include/MaterialBibliografico.h"
+
 #include "../include/Revista.h"
-#include <string>
-#include <iostream>
 
-Revista::Revista(std::string nombre, int isbn, std::string autor, bool prestado, int numEdicion, std::string mesPublicacion) : MaterialBibliografico(nombre,isbn,autor,prestado){
-    this -> numEdicion = numEdicion;
-    this -> mesPublicacion = mesPublicacion;
-};
-int Revista::getNumEdicion(){
-     return numEdicion;
-};
+Revista::Revista(std::string nombre, std::string isbn, std::string autor, bool prestado,
+                 std::string numeroedicion, std::string mespublicacion)
+    : MaterialBibliografico(nombre, isbn, autor, prestado) {
+    this->numeroedicion=numeroedicion;
+    this->mespublicacion=mespublicacion;
+}
 
-std::string Revista::getMesPublicacion(){
-    return mesPublicacion;
-};
+std::string Revista::getNumeroEdicion()const {
+    return this->numeroedicion;
+}
 
-void Revista::mostrarInformacion() const{
-std::cout <<"Revista: " << nombre << "ISBN: " << isbn << "Autor: " << autor << "Número de edición: " << numEdicion << " Mes de publicación: " << mesPublicacion << (prestado ? "Si" : "No");
+std::string Revista::getMesPublicacion()const {
+    return this->mespublicacion;
+}
 
-};
+std::string Revista::mostrarInformacion() {
+    return "Nombre: " + this->nombre + "\n Isbn: " + this->isbn + "\n Autor: " + this->autor + "\n Prestado: " + (this->prestado ? "Sí" : "No") +
+           "\n Numero de Edicion: " + this->getNumeroEdicion() + "\n Mes de Publicacion: " + this->getMesPublicacion();
+}
+
+Revista::~Revista() {
+    // Destructor body if needed
+}
