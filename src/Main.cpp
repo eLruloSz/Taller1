@@ -168,7 +168,7 @@ int main() {
                     break;
             }case 6:{
                 
-                std::ofstream archivo("biblioteca.txt");
+                std::ofstream archivo("biblioteca.txt", ios::app);
                 if (archivo.is_open()) {
                     for(MaterialBibliografico* biblio : biblioteca){
                         archivo<<biblio->getNombre()<< "," << biblio->getAutor << "," << biblio->getIsbn << "," << biblio->getPrestado << std::endl;
