@@ -171,11 +171,13 @@ int main() {
                 std::ofstream archivo("biblioteca.txt");
                 if (archivo.is_open()) {
                     for(MaterialBibliografico* biblio : biblioteca){
-                        archivo<<biblio->getNombre()<<"\n";
+                        archivo<<biblio->getNombre()<< "," << biblio->getAutor << "," << biblio->getIsbn << "," << biblio->getPrestado << std::endl;
                     }
+                    archivo.close();
+                }else{
+                    std::cout << "Error al abrir el archivo" <<std::endl;
                 }
-
-                archivo.close();
+|
                 std::cout << "Salida exitosa";
                 activo = false;
                 break;
