@@ -9,6 +9,7 @@
 #include "Revista.cpp"
 #include "Usuario.cpp"
 #include "Main.h"
+#include <typeinfo> 
 
 static MaterialBibliografico* biblioteca[100];
 static int contBi = 0;
@@ -171,7 +172,10 @@ int main() {
                 std::ofstream archivo("biblioteca.txt", ios::app);
                 if (archivo.is_open()) {
                     for(MaterialBibliografico* biblio : biblioteca){
-                        archivo<<biblio->getNombre()<< "," << biblio->getAutor << "," << biblio->getIsbn << "," << biblio->getPrestado << std::endl;
+                        if(dynamic_cast<Revista*>(biblio){
+                             archivo<<biblio->getNombre()<< "," << biblio->getAutor << "," << biblio->getIsbn << "," << biblio->getPrestado << "," << biblio-> std::endl;
+                        }
+                        
                     }
                     archivo.close();
                 }else{
