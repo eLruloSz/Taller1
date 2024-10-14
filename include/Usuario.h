@@ -18,7 +18,7 @@ public:
     void devolverMaterial(std::string materialDevolver);
     std::string mostrarMaterialesPrestados();
     ~Usuario();
-    std:string informacion();
+    std::string informacion();
 };
 
 

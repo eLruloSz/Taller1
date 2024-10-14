@@ -59,5 +59,5 @@ Usuario::~Usuario() {
 }
 
 std::string Usuario::informacion(){
-    return "Nombre: "+this-nombre+"\n Id: "+this->id+"\n";
+    return "Nombre: "+this->nombre+"\n Id: "+this->id+"\n";
 }
